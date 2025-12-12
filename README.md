@@ -12,6 +12,22 @@
 >
 >OmniParse is a platform that ingests and parses any unstructured data into structured, actionable data optimized for GenAI (LLM) applications. Whether you are working with documents, tables, images, videos, audio files, or web pages, OmniParse prepares your data to be clean, structured, and ready for AI applications such as RAG, fine-tuning, and more
 
+## Table of Contents
+- [Try it out](#try-it-out)
+- [Intro](#intro)
+- [Features](#features)
+- [Why OmniParse?](#why-omniparse)
+- [Installation](#installation)
+  - [Docker](#-docker)
+- [Usage](#usage)
+- [Supported Data Types](#supported-data-types)
+- [API Endpoints](#api-endpoints)
+- [Coming Soon/RoadMap](#coming-soon-roadmap)
+- [Limitations](#limitations)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
+
 ## Try it out
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/adithya-s-k/omniparse/blob/main/examples/OmniParse_GoogleColab.ipynb)
 
@@ -26,28 +42,31 @@ https://github.com/adithya-s-k/omniparse/assets/27956426/457d8b5b-9573-44da-8bcf
 ✅ Table extraction, image extraction/captioning, audio/video transcription, web page crawling  \
 ✅ Easily deployable using Docker and Skypilot  \
 ✅ Colab friendly  \
-✅ Interative UI powered by Gradio  
+✅ Interactive UI powered by Gradio
 
-### Why OmniParse ?
+### Why OmniParse?
 It's challenging to process data as it comes in different shapes and sizes. OmniParse aims to be an ingestion/parsing platform where you can ingest any type of data, such as documents, images, audio, video, and web content, and get the most structured and actionable output that is GenAI (LLM) friendly.
 
 ## Installation
-> [!IMPORTANT] 
+
+> [!IMPORTANT]
 > The server only works on Linux-based systems. This is due to certain dependencies and system-specific configurations that are not compatible with Windows or macOS.
+
+### Clone the Repository
 
 ```bash
 git clone https://github.com/adithya-s-k/omniparse
 cd omniparse
 ```
 
-Create a Virtual Environment:
+### Create a Virtual Environment
 
 ```bash
 conda create -n omniparse-venv python=3.10
 conda activate omniparse-venv
 ```
 
-Install Dependencies:
+### Install Dependencies
 
 ```bash
 poetry install
@@ -59,52 +78,64 @@ pip install -r pyproject.toml
 
 ### 🛳️ Docker
 
-To use OmniParse with Docker, execute the following commands:
+👉🏼 [Docker Image on Docker Hub](https://hub.docker.com/r/savatar101/omniparse)
 
-1. Pull the OmniParse API Docker image from Docker Hub:
-2. Run the Docker container, exposing port 8000:
- 👉🏼[Docker Image](https://hub.docker.com/r/savatar101/omniparse)
+#### Using Pre-built Docker Image
+
+Pull and run the OmniParse API Docker image from Docker Hub:
+
 ```bash
+# Pull the image
 docker pull savatar101/omniparse:0.1
-# if you are running on a gpu 
+
+# Run with GPU support
 docker run --gpus all -p 8000:8000 savatar101/omniparse:0.1
-# else
+
+# Run without GPU
 docker run -p 8000:8000 savatar101/omniparse:0.1
 ```
 
-Alternatively, if you prefer to build the Docker image locally:
-Then, run the Docker container as follows:
+#### Building Docker Image Locally
+
+Alternatively, build the Docker image locally:
 
 ```bash
+# Build the image
 docker build -t omniparse .
-# if you are running on a gpu
-docker run --gpus all -p 8000:8000 omniparse
-# else
-docker run -p 8000:8000 omniparse
 
+# Run with GPU support
+docker run --gpus all -p 8000:8000 omniparse
+
+# Run without GPU
+docker run -p 8000:8000 omniparse
 ```
 ## Usage
 
-Run the Server:
+### Running the Server
+
+Start the OmniParse server with the desired modules:
 
 ```bash
 python server.py --host 0.0.0.0 --port 8000 --documents --media --web
 ```
 
-- `--documents`: Load in all the models that help you parse and ingest documents (Surya OCR series of models and Florence-2).
-- `--media`: Load in Whisper model to transcribe audio and video files.
-- `--web`: Set up selenium crawler.
+**Command-line Arguments:**
+- `--documents`: Load all models for parsing and ingesting documents (Surya OCR series and Florence-2)
+- `--media`: Load Whisper model to transcribe audio and video files
+- `--web`: Set up Selenium crawler for web page parsing
 
-Download Models:
-If you want to download the models before starting the server
+### Downloading Models
+
+If you want to download the models before starting the server:
 
 ```bash
 python download.py --documents --media --web
 ```
 
-- `--documents`: Load in all the models that help you parse and ingest documents (Surya OCR series of models and Florence-2).
-- `--media`: Load in Whisper model to transcribe audio and video files.
-- `--web`: Set up selenium crawler.
+**Command-line Arguments:**
+- `--documents`: Download models for document parsing (Surya OCR series and Florence-2)
+- `--media`: Download Whisper model for audio/video transcription
+- `--web`: Set up Selenium crawler dependencies
 
 ## Supported Data Types
 
@@ -276,7 +307,7 @@ Arguments:
 </details>
 
 
-## Coming Soon/ RoadMap
+## Coming Soon/RoadMap
 🦙 LlamaIndex | Langchain | Haystack integrations coming soon
 📚 Batch processing data
 ⭐ Dynamic chunking and structured data extraction based on specified Schema  
