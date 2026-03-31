@@ -50,4 +50,5 @@ fi
 
 # Start the FastAPI server
 echo "Starting server on ${HOST}:${PORT}..."
-exec python3 server.py --host "${HOST}" --port "${PORT}" ${DOCS_FLAG} ${MEDIA_FLAG} ${WEB_FLAG} ${RELOAD_FLAG}
+# Use 0.0.0.0 as server_name to ensure Gradio generates correct URLs
+exec python3 server.py --host "${HOST}" --port "${PORT}" --server-name "0.0.0.0" ${DOCS_FLAG} ${MEDIA_FLAG} ${WEB_FLAG} ${RELOAD_FLAG}

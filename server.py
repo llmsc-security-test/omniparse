@@ -43,6 +43,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run the omniparse server.")
     parser.add_argument("--host", default="0.0.0.0", help="Host IP address")
     parser.add_argument("--port", type=int, default=8000, help="Port number")
+    parser.add_argument("--server-name", default=None, help="Server name for Gradio URL generation")
     parser.add_argument("--documents", action="store_true", help="Load document models")
     parser.add_argument("--media", action="store_true", help="Load media models")
     parser.add_argument("--web", action="store_true", help="Load web models")
@@ -81,7 +82,9 @@ def main():
     # Start the server
     import uvicorn
 
-    uvicorn.run("server:app", host=args.host, port=args.port, reload=args.reload)
+    # Use server_name to ensure Gradio generates correct URLs
+    server_name = args.server_name if args.server_name else args.host
+    uvicorn.run("server:app", host=args.host, port=args.port, reload=args.reload, server_name=server_name)
 
 
 if __name__ == "__main__":
